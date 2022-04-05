@@ -3,6 +3,7 @@
     Pascal's Triangle.
 '''
 
+
 def pascal_triangle(n):
     '''
         Function to draw Pascal's Triangle.
