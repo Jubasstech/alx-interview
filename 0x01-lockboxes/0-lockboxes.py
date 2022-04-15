@@ -1,26 +1,34 @@
 #!/usr/bin/python3
 
-'''
-    Lockboxes algorithm question.
-'''
+""" Lockboxes """
 
 
 def canUnlockAll(boxes):
-    '''
-        Given a list of boxes, determine if you can open all of them.
-    '''
-    # Create a list of unlocked boxes.
-    unlocked = [0]
+    """
+    - boxes is a list of lists
+    - A key with the same number as a box opens that box
+    - You can assume all keys will be positive integers
+    - The first box boxes[0] is unlocked
+    - Return True if all boxes can be opened, else return False
+    """
+    canUnlockAll = False
+    keys = {0: True}
+    n_boxes = len(boxes)
+    while(True):
 
-    # Loop through the list of boxes.
-    for box in boxes:
-        # If the box is unlocked, then add it to the unlocked list.
-        if box in unlocked:
-            unlocked.append(box)
+        n_keys = len(keys)
 
-    # If the length of the unlocked list is equal to the length of the boxes list, then return True.
-    if len(unlocked) == len(boxes):
-        return True
+        for i in range(len(boxes)):
+            if boxes[i] and keys.get(i, False):
+                for j in boxes[i]:
+                    if j < n_boxes:
+                        keys[j] = True
+                    boxes[i] = None
 
-    # Otherwise, return False.
-    return False
+        if not(len(keys) > n_keys):
+            break
+
+    if n_keys == len(boxes):
+        canUnlockAll = True
+
+    return canUnlockAll
